@@ -3,7 +3,7 @@
 ## Definição do projeto
 
 - Sistema de  ECommerce com :
-  - Gerenciamento de produtos
+  - [Gerenciamento de produtos](/gerenciamento-de-produtos.md)
   - Gerenciamento de pedidos
   - Geracao de eventos
   - Importacao de notas fiscais
@@ -15,4 +15,6 @@
 
 - TypeScript
 - AWS Lambda
-- DynamoDB
+- DynamoD
+- CDK
+- CloudFormation
