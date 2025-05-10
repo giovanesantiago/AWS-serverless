@@ -13,9 +13,9 @@ export class ProductsAppStack extends cdk.Stack {
         this.productsFetchHandler = new lambdaNodeJs.NodejsFunction(this, 'ProductsFetchFunction', {
             runtime: lambda.Runtime.NODEJS_22_X,
             functionName: 'ProductsFetchFunction', 
-            entry: 'lambda/products/ProductsFetchFunction.ts', 
+            entry: 'lambda/products/productsFetchFunction.ts', 
             handler: 'handler',
-            memorySize: 1024,
+            memorySize: 128,
             timeout: cdk.Duration.seconds(5),
             bundling: {
                 minify: true,
