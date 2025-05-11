@@ -74,9 +74,9 @@ export class ProductRepository {
         const data = await this.ddbClient.update({
             TableName: this.productsDdb,
             Key: {
-                id:productId,
+                id: productId,
             },
-            ConditionExpression: 'atribute_exists(id)',
+            ConditionExpression: 'attribute_exists(id)',
             ReturnValues: "UPDATED_NEW",
             UpdateExpression: "set productName = :n, code = :c, price = :p, model = :m",
             ExpressionAttributeValues: {
