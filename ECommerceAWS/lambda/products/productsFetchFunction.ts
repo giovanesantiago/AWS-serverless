@@ -2,7 +2,10 @@ import { RetryMode } from "aws-cdk-lib/aws-codepipeline";
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-lambda";
 import { ProductRepository } from "/opt/nodejs/productsLayer";
 import { DynamoDB } from "aws-sdk";
+import  * as AWSRay from "aws-xray-sdk";
 
+// Capturando tudo que fiz pelo sdk
+AWSRay.captureAWS(require("aws-sdk"));
 
 const productsDdb = process.env.PRODUCTS_DDB!;
 const ddbCliente = new DynamoDB.DocumentClient();

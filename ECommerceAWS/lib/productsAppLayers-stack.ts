@@ -6,12 +6,11 @@ import * as ssm from "aws-cdk-lib/aws-ssm";
 import { ProductsAppStack } from './productsApp-stack';
 
 export class ProductsAppLayersStack extends cdk.Stack {
-    readonly productsLayers: lambda.LayerVersion;
 
     constructor(scope: Construct, id: string, props?: cdk.StackProps) {
         super(scope, id, props);
 
-        this.productsLayers = new lambda.LayerVersion(this, "ProductsLayers", {
+        const productsLayers = new lambda.LayerVersion(this, "ProductsLayers", {
              code: lambda.Code.fromAsset('lambda/products/layers/productsLayer'),
              compatibleRuntimes: [lambda.Runtime.NODEJS_22_X],
             layerVersionName: "ProductsLayer",
@@ -20,8 +19,21 @@ export class ProductsAppLayersStack extends cdk.Stack {
 
         new ssm.StringParameter(this, "ProductsLayerVersionArn", {
             parameterName: "ProductsLayerVersionArn",
-            stringValue: this.productsLayers.layerVersionArn
+            stringValue: productsLayers.layerVersionArn
         });
+
+
+        const productEventLayers = new lambda.LayerVersion(this, "ProductEventLayer", {
+            code: lambda.Code.fromAsset('lambda/products/layers/productEventLayer'),
+            compatibleRuntimes: [lambda.Runtime.NODEJS_22_X],
+           layerVersionName: "productEventLayer",
+           removalPolicy: cdk.RemovalPolicy.RETAIN, // manter layers pois vai ser utilizados em outros lugares 
+       });
+
+       new ssm.StringParameter(this, "ProductEventLayerVersionArn", {
+           parameterName: "ProductEventLayerVersionArn",
+           stringValue: productEventLayers.layerVersionArn
+       });
     }
 }
 
